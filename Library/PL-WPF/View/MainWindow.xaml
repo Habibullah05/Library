@@ -1,0 +1,74 @@
+﻿<Window x:Class="Library.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Library.PL_WPF.View.Pages"
+        xmlns:local2="clr-namespace:Library.ViewModel"
+           mc:Ignorable="d"
+         Title="MainWindow" Height="450" Width="800"
+    DataContext="{Binding Main, Source={StaticResource Locator}}">
+
+    <Window.Resources>
+        <DataTemplate x:Key="Add_Book">
+            <local:Add_Book/>
+        </DataTemplate>
+        <DataTemplate x:Key="Books">
+            <local:Books/>
+        </DataTemplate>
+        <DataTemplate x:Key="Students">
+            <local:Students/>
+        </DataTemplate>
+        <DataTemplate x:Key="Remove">
+            <local:Remove_Book/>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="80*"/>
+        </Grid.RowDefinitions>
+
+
+        <UniformGrid Grid.Row="0" Columns="4" Background="SkyBlue">
+
+            <Button  MinHeight="25" MinWidth="100" MaxHeight="100" MaxWidth="200" Padding="5" Command="{Binding Books_Click}" Margin="10" Name="Book_Button" Content="Books" FontSize="20" Background="Transparent" />
+            <Button  MinHeight="25" MinWidth="100" MaxHeight="100" MaxWidth="200" Padding="5" Command="{Binding Studs_Click}" Margin="10" Name="Studs_Button" Content="Students" FontSize="20" Background="Transparent"/>
+            <Button  MinHeight="25" MinWidth="100" MaxHeight="100" MaxWidth="200" Padding="5" Command="{Binding Add_Book_Click}" Margin="10" Name="ADD_Book_Button" Content="Add Book" FontSize="20" Background="Transparent"/>
+            <Button  MinHeight="25" MinWidth="150" MaxHeight="100" MaxWidth="200" Padding="5" Command="{Binding Remove_Book_Click}" Margin="10" Name="Remove_Book_Button" Content="Remove Books" FontSize="20" Background="Transparent"/>
+
+        </UniformGrid>
+        <ContentControl Grid.Row="1"  >
+            <ContentControl.Style>
+                <Style TargetType="ContentControl">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding CurrentPage}" Value="Books">
+                            <DataTrigger.Setters>
+                                <Setter  Property="ContentTemplate" Value="{StaticResource Books}"/>
+                            </DataTrigger.Setters>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding CurrentPage}" Value="Studs">
+                            <DataTrigger.Setters>
+                                <Setter  Property="ContentTemplate" Value="{StaticResource Students}"/>
+                            </DataTrigger.Setters>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding CurrentPage}" Value="Add_Book">
+                            <DataTrigger.Setters>
+                                <Setter  Property="ContentTemplate" Value="{StaticResource Add_Book}"/>
+                            </DataTrigger.Setters>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding CurrentPage}" Value="Remove">
+                            <DataTrigger.Setters>
+                                <Setter  Property="ContentTemplate" Value="{StaticResource Remove}"/>
+                            </DataTrigger.Setters>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ContentControl.Style>
+
+        </ContentControl>
+    </Grid>
+
+</Window>
